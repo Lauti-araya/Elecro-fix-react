@@ -1,0 +1,411 @@
+:root {
+    --header-color: #051229;
+    --color-text: #c4c6c9;
+    --color-nav: #36454f;
+    --color-main: #0f0f0f;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}    
+
+body {
+    font-family:monospace;
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+
+/* HEADER SECTION */
+.header {
+    background: linear-gradient(#0002, #000), url(/Taller_img.webp);
+    background-size: cover;
+    background-position:center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 200px;
+}
+
+.header__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:var(--color-text);
+}
+
+.menu__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+}
+
+
+/* NAV SECTION */
+.nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 20;
+    background-color: var(--color-nav);
+    margin: 50px 50px;
+    width: 300px;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.nav__item {
+    background: none;
+    border: none;
+    margin: 50px 0 40px 0;
+    font-size: 1.5rem;
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.nav__item:hover {
+    text-decoration: underline;
+    opacity: 0.5;
+}
+
+/* HOME SECTION */
+
+.main {
+    background-color: var(--color-main);
+    color: var(--color-text);
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 10;
+}
+
+.main__hidden {
+    opacity: 0.5;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+}
+
+.section__title {
+    font-size: 1.5rem;
+    margin: 50px 0 20px 15px;
+}
+
+.section {
+    margin: 10px 15px;
+    border: 1px solid var(--color-nav);
+    min-height: 100px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: 8px;
+    padding-bottom: 10px;
+}
+
+.text__title {
+    font-size: 1.12rem;
+    text-align: left;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* INVENTORY SECTION */
+
+.search__add {
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+    position: relative;
+}
+
+.search__icon {
+    position: absolute;
+    color: var(--color-text);
+    z-index: 20;
+    left: 10px;
+    pointer-events: none;
+}
+.inventory__input {
+    flex-grow: 1;
+    height: 40px;
+    margin-right: 20px;
+    padding-left: 40px;
+    background-color: transparent;
+    border: 1px solid var(--color-nav);
+    border-radius: 8px;
+    color: var(--color-text);
+    font-family: monospace;
+    position: relative;
+    z-index: 10;
+}
+
+.inventory__input:focus, .input__form:focus {
+    outline: 1px solid white;
+}
+
+
+
+.add__icon {
+    border: 2px solid var(--color-text);
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-text);
+}
+
+.add__icon:hover ,.delete__icon:hover, .menu__button:hover, .add__button:hover, .close__icon:hover, .ticket__button:hover, .ticket__filter:hover{
+    opacity: 0.5;
+}
+
+.delete__icon {
+    background-color: transparent;
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+}
+
+.text__alert {
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* INVENTORY FORM */
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--header-color);
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+}
+
+.form__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__title {
+    font-size: 1.1rem;
+}
+.close__icon {
+    cursor: pointer;
+}
+
+.item__title {
+    display: block;
+    margin: 20px 0 10px 0;
+    font-size: 1rem;
+}
+
+.input__form {
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid var(--color-nav);
+    border-radius: 8px;
+    color: var(--color-text);
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.add__button {
+    margin-top: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid #fff;
+    padding: 8px;
+}
+
+
+/* TICKET SECTION */
+
+.ticket__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket__title {
+    font-size: 1.5rem;
+    margin: 50px 0 20px 20px;
+}
+
+.ticket__button {
+    width: 90px;
+    height: 30px;
+    margin: 50px 35px 20px 0;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid #fff;
+    border-radius: 8px;
+}
+
+.filter{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ticket__filter {
+    width: 90px;
+    height: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid #fff;
+    border-radius: 8px;
+}
+
+.active__filter {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    font-weight: bold;
+}
+
+.menu__status {
+    background-color: transparent;
+    color: var(--color-text);
+    border: none;
+    appearance: none; 
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.status__option {
+    background-color: var(--color-nav);
+    color: var(--color-text);
+}
+
+.form__menu {
+    border: 1px solid var(--color-nav);
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+
+.nav__computer {
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+
+    .header{
+        height: 250px;
+        background: linear-gradient(#0002,#000), url(/taller_img_pc.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .header__title{
+        align-items: start;
+        font-size: 1.2rem;
+    }
+
+    .menu__button{
+        display: none;
+    }
+
+    .nav__computer{
+        display: flex;
+    }
+
+    .nav__item-computer {
+        align-items: center;
+        font-size: 1.3rem;
+        background-color: transparent;
+        color: var(--color-text);
+        width: 90px;
+        height: 30px;
+        margin: 60px 50px 20px 35px;
+        cursor: pointer;
+        background-color: transparent;
+        color: var(--color-text);
+        border: none;
+    }
+
+    .nav__item-computer:hover{
+        opacity: 0.5;
+        text-decoration: underline;
+    }
+
+    .main {
+        height: calc(100vh - 250px);
+    }
+    .home {
+        display: flex;
+        min-width: 800px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .inventory__header {
+        display: flex;
+        justify-content: space-evenly;
+        align-items:baseline;
+    }
+    .search__add {
+        width: 500px;
+        margin: 30px 60px;
+    }
+
+    .inventory{
+        min-width: 800px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .ticket {
+        min-width: 800px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    .ticket__header {
+        width: 50%;
+    }
+
+    .ticket__button{
+        width: 200px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .ticket__header-computer{
+        display: flex;
+        justify-content: space-between;
+        align-items: last baseline;
+    }
+
+    .filter {
+        width: 40%;
+        margin-right: 20px;
+        justify-content: space-between;
+    }
+
+}
+
+.hidden {
+    display: none;
+}
+
