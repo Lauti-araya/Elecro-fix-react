@@ -312,7 +312,7 @@ th, td {
 @media screen and (min-width: 900px) {
 
     .header{
-        height: 250px;
+        height: 200px;
         background: linear-gradient(#0002,#000), url(/taller_img_pc.jpg);
         background-size: cover;
         background-position: center;
@@ -351,7 +351,7 @@ th, td {
     }
 
     .main {
-        height: calc(100vh - 250px);
+        height: calc(100vh - 200px);
     }
     .home {
         display: flex;

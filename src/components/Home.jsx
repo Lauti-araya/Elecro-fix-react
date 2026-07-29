@@ -1,4 +1,4 @@
-export function Home({ products, tickets }) {
+export function Home({ products, tickets, deleteProduct, updateTicketStatus }) {
     
     const activeTickets = tickets.filter(ticket => ticket.estado !== "Reparado");
     const lowStockProducts = products.filter(product => product.stock <= 2);
@@ -27,8 +27,15 @@ export function Home({ products, tickets }) {
                                     <tr key={ticket.id}>
                                         <td>{ticket.nombre}</td>
                                         <td>{ticket.modelo}</td>
-                                        <td>{ticket.error}</td>
-                                        <td>{ticket.estado}</td>
+                                        <td>{ticket.error}</td> 
+                                        <td>
+                                            <select className="menu__status" value={ticket.estado} onChange={(e)=> updateTicketStatus(ticket.id, e.target.value)}>
+                                                <option value="Ingresado" className="status__option">Ingresado</option>
+                                                <option value="Revision" className="status__option">En revision</option>
+                                                <option value="Esperando repuesto" className="status__option">Esperando repuesto</option>
+                                                <option value="Reparado" className="status__option">Reparado</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                 ))
                             )
@@ -61,6 +68,11 @@ export function Home({ products, tickets }) {
                                         <td>{product.nombre}</td>
                                         <td>{product.stock}</td>
                                         <td>${product.precio}</td>
+                                        <td>
+                                            <button className="delete__icon" onClick={()=> deleteProduct(product.id)}>
+                                                <span className="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             )

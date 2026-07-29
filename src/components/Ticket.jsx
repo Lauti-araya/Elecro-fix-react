@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Ticket({tickets, setTickets}) {
+export function Ticket({tickets, setTickets, updateTicketStatus}) {
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -32,16 +32,6 @@ export function Ticket({tickets, setTickets}) {
         setIsFormVisible(false);
     };
 
-    const updateTicketStatus = (id, newStatus) =>{
-        const updatedTickets = tickets.map(ticket =>{
-            if (ticket.id === id){
-                return {...ticket, estado: newStatus};
-            }
-            return ticket;
-        });
-
-        setTickets(updatedTickets);
-    };
     
 const ticketFilter = tickets.filter(ticket=>{
     if (currentFilter === 'all') return true;

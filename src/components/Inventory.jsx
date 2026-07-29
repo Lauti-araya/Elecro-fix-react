@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Inventory({products, setProducts}) {
+export function Inventory({products, setProducts, deleteProduct}) {
     
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -31,11 +31,7 @@ export function Inventory({products, setProducts}) {
         setIsFormVisible(false)
     };
 
-    const deleteProduct = (id) => {
-        const updateProducts = products.filter(product => product.id !== id);
-
-        setProducts(updateProducts);
-    }
+    
 
     const filteredProducts = products.filter(product => product.nombre.toLowerCase().includes(search.toLowerCase()));
 
