@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Header } from './components/Header';
 import { Nav } from './components/Nav';
 import { Main } from './components/Main';
+import {BrowserRouter} from "react-router-dom";
 import './index.css';
 
 function App() {
 
   const [isNavHidden, setIsNavHidden]= useState(true);
-  const [currentView, setCurrentView]  = useState('inicio');
 
   const toggleNav = ()=>{
     setIsNavHidden(!isNavHidden);
@@ -19,17 +19,15 @@ function App() {
     }
   }
 
-  const changeView = (viewName) => {
-    setCurrentView(viewName);
-    closeNav();
-  }
 
   return(
     <>
-    <Header onToggleNav={toggleNav} onChangeView = {changeView} currentView = {currentView}/>
-    <Nav hidden={isNavHidden} onChangeView = {changeView} currentView={currentView}/>
-    
-    <Main onContentClick={closeNav} currentView = {currentView}/>
+    <BrowserRouter>
+      <Header onToggleNav={toggleNav}/>
+      <Nav hidden={isNavHidden} onContentClick={closeNav} />
+      
+      <Main onContentClick={closeNav}/>
+    </BrowserRouter>
     </>
   );
 }

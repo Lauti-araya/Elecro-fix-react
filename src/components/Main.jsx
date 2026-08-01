@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Inventory } from "./Inventory";
 import { Ticket } from "./Ticket";
 import { Home } from "./Home";
+import {Routes, Route,} from "react-router-dom";
 
-export function Main({ onContentClick, currentView }) {
+export function Main({ onContentClick }) {
     
 const deleteProduct = (id) => {
         const updateProducts = products.filter(product => product.id !== id);
@@ -49,19 +50,15 @@ const deleteProduct = (id) => {
     }, [tickets]);
 
     return (
-        <main className="main" onClick={onContentClick}>
-            
-            {currentView === 'inicio' && (
-                <Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>
-            )}
-            {currentView === 'inventario' && (
-                <Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct}/>
-            )}
+            <main className="main" onClick={onContentClick}>
+                <Routes>
 
-            {currentView === 'ticket' && (
-                <Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>
-            )}
-            
-        </main>
+                    <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
+                    <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
+                    <Route path="/Ticket" element={<Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>} />
+                    
+
+                </Routes>
+            </main>
     );
 }

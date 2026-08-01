@@ -1,9 +1,11 @@
-export function Nav ({hidden, onChangeView, currentView}){
+import {NavLink} from "react-router-dom";
+
+export function Nav ({hidden, onContentClick}){
     return (
-        <nav className={`nav ${hidden ? 'hidden': ''}`}>
-                <button onClick={()=> onChangeView('inicio')} className={`nav__item home__option ${currentView === 'inicio'? 'active__filter':''}`}>Inicio</button>
-                <button onClick={()=> onChangeView('inventario')} className={`nav__item inventory__option ${currentView === 'inventario'? 'active__filter':''}`}>Inventario</button>
-                <button onClick={()=> onChangeView('ticket')} className={`nav__item ticket__option ${currentView === 'ticket'? 'active__filter':''} `}>Ticket</button>
-        </nav>
+            <nav  className={`nav ${hidden ? 'hidden': ''}`}>
+                <NavLink onClick={onContentClick} to="/" className={({ isActive }) =>`nav__item home__option ${isActive ? 'active__filter' : ''}`}>Inicio</NavLink>
+                <NavLink onClick={onContentClick} to="/Inventory" className={({ isActive }) =>`nav__item inventory__option ${isActive ? 'active__filter' : ''}`}>Inventario</NavLink>
+                <NavLink onClick={onContentClick} to="/Ticket" className={({ isActive }) =>`nav__item ticket__option ${isActive ? 'active__filter' : ''}`}>Ticket</NavLink>
+            </nav>
     );
 }

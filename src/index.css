@@ -51,13 +51,19 @@ body {
     position: absolute;
     z-index: 20;
     background-color: var(--color-nav);
-    margin: 50px 50px;
     width: 300px;
     padding: 30px;
     border-radius: 20px;
+    margin: 50px 50px;
+}
+
+.nav__item, .nav__item-computer{
+    text-decoration: none;
 }
 
 .nav__item {
+    display: block;
+    text-align: center;
     background: none;
     border: none;
     margin: 50px 0 40px 0;
@@ -332,6 +338,8 @@ th, td {
     }
 
     .nav__item-computer {
+        display: block;
+        text-align: center;
         align-items: center;
         font-size: 1.3rem;
         background-color: transparent;
