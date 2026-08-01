@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { supabase } from "../supabase";
+
 
 export function Inventory({products, setProducts, deleteProduct}) {
     
@@ -11,18 +13,28 @@ export function Inventory({products, setProducts, deleteProduct}) {
     const [newStock, setNewStock] = useState('');
     const [newPrice, setNewPrice] = useState('');
 
+    const addProductDB = async (newProduct) =>{
+        const {data, error} = await supabase.from('repuestos').insert([newProduct]).select();
+        if (error) {
+            console.error('Error al guardar: ', error);
+            return;
+        }
+
+        setProducts([...products, data[0]]);
+    }
+
     const addProduct = (e)=>{
         e.preventDefault();
 
         const newProduct={
-            id: Date.now().toString(),
             codigo: newCode,
             nombre: newName,
             stock: parseInt(newStock),
             precio: parseFloat(newPrice)
         }
 
-        setProducts([...products, newProduct]);
+
+        addProductDB(newProduct);
 
         setNewCode('');
         setNewName('');
@@ -97,7 +109,7 @@ export function Inventory({products, setProducts, deleteProduct}) {
                 <label htmlFor="stock" className="item__title">Cantidad en stock</label>
                 <input type="number" className="input__form" id="stock" required value={newStock} onChange={(e)=>setNewStock(e.target.value)} />
 
-                <label htmlFor="price" className="item__title">Precio unitarioe</label>
+                <label htmlFor="price" className="item__title">Precio unitario</label>
                 <input type="number" className="input__form" id="price" required step="0.01" value={newPrice} onChange={(e)=>setNewPrice(e.target.value)} />
 
                 <button type="submit" className="add__button">Agregar</button>

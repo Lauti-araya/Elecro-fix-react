@@ -3,16 +3,29 @@ import { Inventory } from "./Inventory";
 import { Ticket } from "./Ticket";
 import { Home } from "./Home";
 import {Routes, Route,} from "react-router-dom";
+import { supabase } from "../supabase";
 
 export function Main({ onContentClick }) {
     
-const deleteProduct = (id) => {
+const deleteProduct = async (id) => {
+    const {error} = await supabase.from('repuestos').delete().eq('id', id);
+    if (error) {
+        console.error('Error al eliminar de la base de datos: ', error);
+        return;
+    }
         const updateProducts = products.filter(product => product.id !== id);
 
         setProducts(updateProducts);
     }
     
-    const updateTicketStatus = (id, newStatus) =>{
+    const updateTicketStatus = async (id, newStatus) =>{
+
+        const {error} = await supabase.from('tickets').update({estado: newStatus}).eq('id', id);
+        if (error) {
+            console.error('Error al actualizar el estado del ticket: ', error);
+            return;
+        }
+
         const updatedTickets = tickets.map(ticket =>{
             if (ticket.id === id){
                 return {...ticket, estado: newStatus};
@@ -23,31 +36,32 @@ const deleteProduct = (id) => {
         setTickets(updatedTickets);
     };
 
-    const [products, setProducts] = useState(()=>{
-        const savedProducts = localStorage.getItem("Repuestos");
-        if (savedProducts){
-            return JSON.parse(savedProducts);
-        }else{
-            return [];
+    const [products, setProducts] = useState([]);
+    const [tickets, setTickets] = useState([]);
+
+    useEffect(() => {
+        const cargarInventario = async () => {
+            const { data, error } = await supabase.from('repuestos').select('*');
+            if (error) {
+                console.error('Error al cargar el inventario:', error);
+            } else {
+                setProducts(data);
+            }
         }
-    });
+        cargarInventario();
+    },[]);
 
-    const [tickets, setTickets] = useState(()=>{
-        const savedTickets = localStorage.getItem("Tickets");
-        if(savedTickets){
-            return JSON.parse(savedTickets);
-        } else {
-            return [];
+    useEffect(()=> {
+        const cargarTickets = async () => {
+            const { data, error } = await supabase.from('tickets').select('*');
+            if (error) {
+                console.error('Error al cargar los tickets:', error);
+            } else {
+                setTickets(data);
+            }
         }
-    });
-
-    useEffect(()=>{
-        localStorage.setItem("Repuestos",JSON.stringify(products));
-    }, [products]);
-
-    useEffect(()=>{
-        localStorage.setItem("Tickets",JSON.stringify(tickets));
-    }, [tickets]);
+        cargarTickets();
+    },[])
 
     return (
             <main className="main" onClick={onContentClick}>

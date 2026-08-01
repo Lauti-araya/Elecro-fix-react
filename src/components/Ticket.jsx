@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../supabase";
 
 export function Ticket({tickets, setTickets, updateTicketStatus}) {
 
@@ -11,19 +12,27 @@ export function Ticket({tickets, setTickets, updateTicketStatus}) {
     const [newError, setNewError] = useState('');
     const [newState, setNewState] = useState('Ingresado');
 
+    const addTicketDB = async (newTicket) =>{
+        const {data, error} = await supabase.from('tickets').insert([newTicket]).select();
+        if (error) {
+            console.error('Error al guardar: ', error);
+            return;
+        }
+
+        setTickets([...tickets, data[0]]);
+    }
 
     const openTicket = (e)=>{
         e.preventDefault();
 
         const newTicket ={
-            id: Date.now().toString(),
             nombre: newName,
             modelo: newModel,
             error: newError,
             estado: newState
         }
 
-        setTickets([...tickets,newTicket]);
+        addTicketDB(newTicket);
 
         setNewName('');
         setNewModel('');
