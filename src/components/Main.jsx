@@ -52,6 +52,7 @@ const deleteProduct = async (id) => {
     const [products, setProducts] = useState([]);
     const [tickets, setTickets] = useState([]);
     const [session, setSession] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -69,28 +70,19 @@ const deleteProduct = async (id) => {
         },[]);
 
     useEffect(() => {
-        const cargarInventario = async () => {
-            const { data, error } = await supabase.from('repuestos').select('*');
-            if (error) {
-                console.error('Error al cargar el inventario:', error);
-            } else {
-                setProducts(data);
-            }
-        }
-        cargarInventario();
-    },[]);
+        const cargarDatos = async () =>{
+            const {data: repuestosData } = await supabase.from('repuestos').select('*');
+            const {data: ticketsData } = await supabase.from('tickets').select('*');
 
-    useEffect(()=> {
-        const cargarTickets = async () => {
-            const { data, error } = await supabase.from('tickets').select('*');
-            if (error) {
-                console.error('Error al cargar los tickets:', error);
-            } else {
-                setTickets(data);
-            }
+            if (repuestosData) setProducts(repuestosData);
+            if (ticketsData) setTickets(ticketsData);
+
+            setIsLoading(false);
         }
-        cargarTickets();
-    },[])
+        if (session) {
+            cargarDatos();
+        }
+    },[session]);
 
     return (
         <>
@@ -104,14 +96,20 @@ const deleteProduct = async (id) => {
             ):(
                 <>
                     <Header onToggleNav={toggleNav} logOut={handleLogout} />
+                    <Nav hidden={isNavHidden} onContentClick={onContentClick} logOut={handleLogout} />
                     <main className="main" onClick={onContentClick}>
-                        <Nav hidden={isNavHidden} onContentClick={onContentClick} logOut={handleLogout} />
-                        <Routes>
-                            <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
-                            <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
-                            <Route path="/Ticket" element={<Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>} />
-                            <Route path="*" element={<Navigate to="/"/>}/>
-                        </Routes>
+                        {isLoading ? (
+                            <div className="loading__alert">
+                                <h2 className="text_alert">Cargando datos...</h2>
+                            </div>
+                        ):(
+                            <Routes>
+                                <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
+                                <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
+                                <Route path="/Ticket" element={<Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>} />
+                                <Route path="*" element={<Navigate to="/"/>}/>
+                            </Routes>
+                        )}
                     </main>
                 </>
             )}

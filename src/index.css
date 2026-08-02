@@ -2,7 +2,9 @@
     --header-color: #051229;
     --color-text: #c4c6c9;
     --color-nav: #36454f;
-    --color-main: #0f0f0f;
+    --color-main: #002;
+    --color-logout: #ef5350;
+    --color-border: #fff
 }
 
 *{
@@ -12,7 +14,7 @@
 }    
 
 body {
-    font-family:monospace;
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
     overflow: auto;
     scrollbar-width: none;
 }
@@ -28,8 +30,8 @@ body {
 }
 
 .error__alert {
-    color: #f21;
-    font-size: 1.1rem;
+    color: var(--color-logout);
+    font-size: 1rem;
     text-align: center;
     margin-top: 20px;
 }
@@ -43,7 +45,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 200px;
+    height: 150px;
 }
 
 .header__title {
@@ -92,17 +94,6 @@ body {
     font-family: monospace;
 }
 
-.logout__option {
-    background: #f00;
-    border: 2px solid var(--color-text);
-    border-radius: 8px;
-    margin: 20px 0 0 0;
-    padding: 5px;
-    color: var(--color-text);
-    font-size: 1.2rem;
-    cursor: pointer;
-    font-family: monospace;
-}
 
 .nav__item:hover {
     text-decoration: underline;
@@ -114,7 +105,7 @@ body {
 .main {
     background-color: var(--color-main);
     color: var(--color-text);
-    height: calc(100vh - 200px);
+    height: calc(100vh - 150px);
     overflow-y: auto;
     scrollbar-width: none;
     position: relative;
@@ -157,8 +148,10 @@ table{
 }
 
 th, td {
-    padding: 10px;
+    padding: 12px 10px;
     text-align: left;
+    font-family: monospace;
+    font-size: 1.05rem;
 }
 
 /* INVENTORY SECTION */
@@ -179,14 +172,14 @@ th, td {
 }
 .inventory__input {
     flex-grow: 1;
-    height: 40px;
+    height: 48px;
     margin-right: 20px;
     padding-left: 40px;
     background-color: transparent;
     border: 1px solid var(--color-nav);
     border-radius: 8px;
     color: var(--color-text);
-    font-family: monospace;
+    font-family: inherit;
     position: relative;
     z-index: 10;
 }
@@ -221,17 +214,39 @@ th, td {
     text-align: center;
 }
 
+.loading__alert {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.add__message {
+    position: fixed;
+    background-color: #4CAF50;
+    color: var(--color-text);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 100;
+    font-size: 1rem;
+    font-family: monospace;
+    animation: fadeIn 0.3s ease-in-out;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
 /* INVENTORY FORM */
 .form {
     display: flex;
     flex-direction: column;
-    background-color: var(--header-color);
-    border: 1px solid var(--color-text);
-    border-radius: 8px;
-    padding: 20px;
+    background-color: #111827;
+    border: 1px solid var(--color-nav);
+    border-radius: 12px;
+    padding: 40px;
     width: 90%;
-    max-width: 1200px;
+    max-width: 420px;
     margin: 50px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .form__header {
@@ -254,14 +269,14 @@ th, td {
 }
 
 .input__form {
-    height: 35px;
+    height: 48px;
     background-color: transparent;
     border: 1px solid var(--color-nav);
     border-radius: 8px;
     color: var(--color-text);
-    font-family: monospace;
+    font-family: inherit;
     font-size: 1rem;
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .add__button {
@@ -269,10 +284,19 @@ th, td {
     cursor: pointer;
     background-color: transparent;
     color: var(--color-text);
-    border: 1px solid #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    height: 48px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: background-color 0.2s, color 0.2s;
     padding: 8px;
 }
 
+.add__button:hover {
+    background-color: var(--color-border);
+    color: var(--color-main);
+}
 
 /* TICKET SECTION */
 
@@ -294,7 +318,7 @@ th, td {
     cursor: pointer;
     background-color: transparent;
     color: var(--color-text);
-    border: 2px solid #fff;
+    border: 2px solid var(--color-border);
     border-radius: 8px;
 }
 
@@ -309,7 +333,7 @@ th, td {
     cursor: pointer;
     background-color: transparent;
     color: var(--color-text);
-    border: 2px solid #fff;
+    border: 2px solid var(--color-border);
     border-radius: 8px;
 }
 
@@ -341,6 +365,31 @@ th, td {
     background-color: transparent;
 }
 
+.ticket__button, .ticket__filter, .form__menu {
+    height: 48px;
+    font-family: inherit;
+}
+
+
+.logout__option {
+    background: transparent;
+    border: 1px solid var(--color-logout);
+    border-radius: 8px;
+    margin: 20px 0 0 0;
+    padding: 12px;
+    color: var(--color-logout);
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease-in-out;
+}
+
+.logout__option:hover {
+    background-color: var(--color-logout);
+    color: var(--color-border);
+    text-decoration: none;
+    opacity: 1;
+}
 
 .nav__computer {
     display: none;
@@ -349,7 +398,6 @@ th, td {
 @media screen and (min-width: 900px) {
 
     .header{
-        height: 200px;
         background: linear-gradient(#0002,#000), url(/taller_img_pc.jpg);
         background-size: cover;
         background-position: center;
@@ -391,19 +439,25 @@ th, td {
     }
 
     .logout__option-computer {
-        background: #f21;
-        border: 2px solid var(--color-text);
+        background: transparent;
+        border: 1px solid var(--color-logout);
         border-radius: 10px;
-        color: var(--color-text);
-        font-size: 1.2rem;
-        height: 50px;
+        color: var(--color-logout);
+        font-size: 1.1rem;
+        height: 48px;
         width: 150px;
         cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s ease-in-out;
     }
 
-    .main {
-        height: calc(100vh - 200px);
+    .logout__option-computer:hover{
+        background-color: var(--color-logout);
+        color: var(--color-border);
+        text-decoration: none;
+        opacity: 1;
     }
+
     .home {
         display: flex;
         min-width: 800px;

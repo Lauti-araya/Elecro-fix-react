@@ -13,14 +13,29 @@ export function Inventory({products, setProducts, deleteProduct}) {
     const [newStock, setNewStock] = useState('');
     const [newPrice, setNewPrice] = useState('');
 
+    const [addMessage, setAddMessage] = useState('');
+
+    const showMessage = (mensaje) => {
+        setAddMessage(mensaje);
+        setTimeout(() => {
+            setAddMessage('');
+        }, 3000);
+    }
+
     const addProductDB = async (newProduct) =>{
         const {data, error} = await supabase.from('repuestos').insert([newProduct]).select();
         if (error) {
             console.error('Error al guardar: ', error);
             return;
         }
-
+        showMessage('¡Repuesto agregado con exito!');
         setProducts([...products, data[0]]);
+        
+        setNewCode('');
+        setNewName('');
+        setNewStock('');
+        setNewPrice('');
+        setIsFormVisible(false)
     }
 
     const addProduct = (e)=>{
@@ -36,11 +51,6 @@ export function Inventory({products, setProducts, deleteProduct}) {
 
         addProductDB(newProduct);
 
-        setNewCode('');
-        setNewName('');
-        setNewStock('');
-        setNewPrice('');
-        setIsFormVisible(false)
     };
 
     
@@ -114,6 +124,11 @@ export function Inventory({products, setProducts, deleteProduct}) {
 
                 <button type="submit" className="add__button">Agregar</button>
             </form>
+            {addMessage && (
+                <div className="add__message">
+                    {addMessage}
+                </div>
+            )}
         </section>
     );
 }
