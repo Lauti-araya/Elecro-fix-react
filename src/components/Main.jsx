@@ -104,8 +104,8 @@ const deleteProduct = async (id) => {
             ):(
                 <>
                     <Header onToggleNav={toggleNav} logOut={handleLogout} />
-                    <Nav hidden={isNavHidden} onContentClick={onContentClick} logOut={handleLogout} />
                     <main className="main" onClick={onContentClick}>
+                        <Nav hidden={isNavHidden} onContentClick={onContentClick} logOut={handleLogout} />
                         <Routes>
                             <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
                             <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
