@@ -1,7 +1,7 @@
 import {NavLink} from "react-router-dom";
 
 
-export function Header ({onToggleNav}){
+export function Header ({onToggleNav, logOut}){
     return (
         <header className="header">
                 <div className="header__title">
@@ -14,6 +14,9 @@ export function Header ({onToggleNav}){
                     <NavLink to="/Inventory" className={({ isActive }) =>`nav__item-computer inventory__option-computer ${isActive ? 'active__filter' : ''}`}>Inventario</NavLink>
 
                     <NavLink to="/Ticket" className={({ isActive }) =>`nav__item-computer ticket__option-computer ${isActive ? 'active__filter' : ''}`}>Ticket</NavLink>
+                    <button onClick={logOut} className="nav__item-computer logout__option-computer">
+                        Cerrar sesión
+                    </button>
                 </nav>
                 <button className="menu__button" onClick={onToggleNav}>
                     <span className="material-symbols-outlined">

@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react";
+import { Login } from "./Login";
 import { Inventory } from "./Inventory";
 import { Ticket } from "./Ticket";
 import { Home } from "./Home";
-import {Routes, Route,} from "react-router-dom";
+import { Header } from './Header';
+import { Nav } from './Nav';
+import {Routes, Route,Navigate} from "react-router-dom";
 import { supabase } from "../supabase";
 
-export function Main({ onContentClick }) {
+export function Main({ onContentClick, isNavHidden, setIsNavHidden}) {
     
+    
+    const toggleNav = ()=>{
+        setIsNavHidden(!isNavHidden);
+    };
+
+    
+    const handleLogout = async ()=>{
+        await supabase.auth.signOut();
+    }
+
 const deleteProduct = async (id) => {
     const {error} = await supabase.from('repuestos').delete().eq('id', id);
     if (error) {
@@ -38,6 +51,22 @@ const deleteProduct = async (id) => {
 
     const [products, setProducts] = useState([]);
     const [tickets, setTickets] = useState([]);
+    const [session, setSession] = useState(null);
+
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({data})=>{
+            setSession(data.session);
+        });
+
+        const {data: listener} = supabase.auth.onAuthStateChange((_event, nuevaSesion)=>{
+            setSession(nuevaSesion);
+        });
+
+        return ()=> {
+            listener.subscription.unsubscribe();
+        }
+        },[]);
 
     useEffect(() => {
         const cargarInventario = async () => {
@@ -64,15 +93,28 @@ const deleteProduct = async (id) => {
     },[])
 
     return (
-            <main className="main" onClick={onContentClick}>
+        <>
+            {!session?(
+                <>
                 <Routes>
-
-                    <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
-                    <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
-                    <Route path="/Ticket" element={<Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>} />
-                    
-
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="*" element={<Navigate to="/Login" />} />
                 </Routes>
-            </main>
+                </>
+            ):(
+                <>
+                    <Header onToggleNav={toggleNav} logOut={handleLogout} />
+                    <Nav hidden={isNavHidden} onContentClick={onContentClick} logOut={handleLogout} />
+                    <main className="main" onClick={onContentClick}>
+                        <Routes>
+                            <Route path="/" element={<Home products={products} tickets={tickets} deleteProduct={deleteProduct} updateTicketStatus={updateTicketStatus}/>} />
+                            <Route path="/Inventory" element={<Inventory products = {products} setProducts={setProducts} deleteProduct={deleteProduct} />} />
+                            <Route path="/Ticket" element={<Ticket tickets = {tickets} setTickets = {setTickets} updateTicketStatus={updateTicketStatus}/>} />
+                            <Route path="*" element={<Navigate to="/"/>}/>
+                        </Routes>
+                    </main>
+                </>
+            )}
+        </>
     );
 }
