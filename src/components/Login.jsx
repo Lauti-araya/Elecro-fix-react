@@ -28,16 +28,20 @@ export function Login () {
     
     
     return (
-        <div className="login__container">
-            <form onSubmit={handleLogin} className="form">
-                <h4 className="form__title">Inicio de sesion</h4>
-                <label htmlFor="email" className="item__title">Correo electronico</label>
-                <input type="email" className="input__form" id="email" name="email" placeholder="Ingrese su correo electronico" required value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <label htmlFor="password" className="item__title">Contraseña</label>
-                <input type="password" className="input__form" id="password" name="password" placeholder="Ingrese su contraseña" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-                {errorMsg && <p className="error__alert">{errorMsg}</p>}
-                <button type="submit" className="add__button">Iniciar sesión</button>
-            </form>
-        </div>
+        <>
+            <div className="login__container">
+                <h1>Electro Fix</h1>
+                <h2>Taller de reparaciones</h2>
+                <form onSubmit={handleLogin} className="form">
+                    <h4 className="form__title">Inicio de sesion</h4>
+                    <label htmlFor="email" className="item__title">Correo electronico</label>
+                    <input type="email" className="input__form" id="email" name="email" placeholder="Ingrese su correo electronico" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <label htmlFor="password" className="item__title">Contraseña</label>
+                    <input type="password" className="input__form" id="password" name="password" placeholder="Ingrese su contraseña" required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    {errorMsg && <p className="error__alert">{errorMsg}</p>}
+                    <button type="submit" className="add__button">Iniciar sesión</button>
+                </form>
+            </div>
+    </>
     )
 }

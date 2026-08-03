@@ -1,16 +1,60 @@
-# React + Vite
+# 🔧 Electro Fix - Sistema de Gestión de Inventario y Tickets
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web Full-Stack diseñada para administrar el flujo de trabajo de un taller de reparaciones. Permite el control de inventario de repuestos en tiempo real y la gestión del estado de los tickets de reparación de manera segura y eficiente.
 
-Currently, two official plugins are available:
+![Vista previa de la aplicación](./assets/Inventory.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Características Principales (Features)
 
-## React Compiler
+*   **Autenticación de Usuarios:** Sistema de login seguro utilizando tokens de sesión.
+*   **Rutas Protegidas (Protected Routes):** Control de acceso en el frontend que redirige a los usuarios no autenticados y previene la visualización de componentes privados.
+*   **Operaciones CRUD:** Creación, lectura, actualización y eliminación de repuestos y tickets en tiempo real.
+*   **Seguridad de Base de Datos (RLS):** Implementación de Políticas de Seguridad a Nivel de Fila (Row Level Security) en el servidor para garantizar que solo usuarios autenticados puedan modificar o consultar datos.
+*   **Experiencia de Usuario (UX):** 
+    *   Indicadores de carga (Loading states) para manejo de peticiones asíncronas.
+    *   Notificaciones flotantes (Toasts) para confirmación de acciones exitosas.
+    *   Interfaz 100% responsiva (Mobile-First) con navegación adaptativa.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 💻 Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+| Categoría | Tecnología / Herramienta |
+| :--- | :--- |
+| **Frontend** | React, React Router DOM |
+| **Estilos** | CSS3 (Variables nativas, Flexbox, UI Responsiva) |
+| **Backend as a Service** | Supabase |
+| **Base de Datos** | PostgreSQL (Gestionada vía Supabase) |
+| **Despliegue** | Vercel (Configurado como Single Page Application) |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🌐 Enlace del Proyecto (Demo)
+
+Puedes ver la aplicación en producción aquí: https://elecro-fix-react.vercel.app
+
+**Credenciales de prueba para reclutadores:**
+* **Email:** test@electrofix.com
+* **Contraseña:** 123456
+
+## 🛠️ Instalación y Configuración Local
+
+Si deseas correr este proyecto en tu entorno local, sigue estos pasos:
+
+1. Clona este repositorio:
+   ```bash
+    git clone https://github.com/Lauti-araya/Elecro-fix-react.git
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Configura las variables de entorno:
+   Crea un archivo `.env` en la raíz del proyecto y agrega tus credenciales de Supabase:
+   ```env
+   VITE_SUPABASE_URL=tu_url_de_supabase
+   VITE_SUPABASE_ANON_KEY=tu_clave_anonima
+   ```
+
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
